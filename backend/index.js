@@ -2,6 +2,7 @@ import express from "express";
 import {PORT, mongoURL} from "./config.js"
 import mongoose from "mongoose";
 import Book from './models/bookModel.js'
+import bookValidation from "./middleware/bookValidation.js"
 
 const app = express();
 
@@ -54,22 +55,21 @@ app.get("/books/:id", async (request, response) => {
   }
 })
 
-app.post("/books", async (request, response) => {
+app.post("/books", bookValidation, async (request, response) => {
   try{
-    if (!request.body.title || !request.body.publishYear){
-      return response.status(400).send({message: 'require title and publish year'})
-    }
-
+    // Create a new book object with the data from the request body
     const newBook = {
       title: request.body.title,
       author: request.body.author,
       publishYear: request.body.publishYear
     }
 
-    const book = await Book.create(newBook)
-    // Book is the model that has the create method that accepts an object (newBook) that will return another object
+    // Use the Book model to create a new document in the 'books' collection
+    // The create method accepts the newBook object and returns the created document
+    const book = await Book.create(newBook);
 
-    return response.status(200).send(book)
+    // Return the created book document in the response with a 200 status code
+    return response.status(200).send(book);
 
   
   }catch(error){
@@ -78,5 +78,36 @@ app.post("/books", async (request, response) => {
   }
 })
 
+app.put('/books/:id', bookValidation, async (request, response) => {
+  try{
+    // request.body is an object
+    // the method that will actually do the work (returns true or false)
+    const result = await Book.findByIdAndUpdate(request.params.id, request.body)
+
+    if (!result){
+      return response.status(404).send({message: "Book not found"})
+    } 
+    return response.status(200).send({message: "Book successfully updated"})
+
+  }catch(error){
+    console.log(error)
+    response.status(500).send({message: error.message})
+  }
+})
 
 
+app.delete('/books/:id', bookValidation, async (request, response) => {
+  try{
+    // the method that will actually do the work (returns true or false)
+    const result = await Book.findByIdAndDelete(request.params.id)
+
+    if (!result){
+      return response.status(404).send({message: "Book not found"})
+    } 
+    return response.status(200).send({message: "Book successfully deleted"})
+
+  }catch(error){
+    console.log(error)
+    response.status(500).send({message: error.message})
+  }
+})
