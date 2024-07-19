@@ -18,15 +18,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
       element: <Create />
     },
     {
-      path: '/show',
+      path: '/show/:id',
       element: <Show />
     },
     {
-      path: '/delete:id',
+      path: '/delete/:id',
       element: <Delete />
     },
     {
-      path: '/edit:id',
+      path: '/edit/:id',  
       element: <Edit />
     },
     {
@@ -41,4 +41,4 @@ export default function App() {
       <RouterProvider router={router} />
     </>
   );
-}
+} 

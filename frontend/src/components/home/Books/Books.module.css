@@ -1,0 +1,22 @@
+.table{
+  font-family: 'Roboto', 'Arial';
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.title{
+  font-weight: bold;
+  background-color: black;
+  color: white;
+  padding: 0 20px;
+}
+
+.td{
+  border: 1px solid black;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.icon{
+  color: black;
+}
