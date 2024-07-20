@@ -19,7 +19,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
     },
     {
       path: '/show/:id',
-      element: <Show />
+      element: <Show />,
+      errorElement: <NotFound />
     },
     {
       path: '/delete/:id',

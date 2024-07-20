@@ -1,0 +1,29 @@
+.button{
+  border-radius: 10px;
+  border: 1px solid #1A5319;
+  background-color: #D6EFD8;
+  color: #1A5319;
+  width: 10vw;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.button:hover{
+  background-color: #80AF81;
+  color: #D6EFD8;
+  border: none
+}
+
+.homeButton{
+  margin-top: 10vh;
+}
+
+.no{
+  margin-left: 5vw;
+}
+
+.no:hover{
+  background-color: #dc4949;
+  color: #1A5319;
+}

@@ -12,7 +12,7 @@ const Books = ({data}) => {
     <table className={style.table}>
     <thead>
       <tr>
-        <th className={style.title}>Number</th>
+        <th className={style.title}>No.</th>
         <th className={style.title}>Title</th>
         <th className={style.title}>Author</th>
         <th className={style.title}>Publish Year</th>
@@ -26,7 +26,7 @@ const Books = ({data}) => {
           <td className={style.td}>{element.title}</td>
           <td className={style.td}>{element.author}</td>
           <td className={style.td}>{element.publishYear}</td>
-          <td className={style.td}>
+          <td className={`${style.td} ${style.icon_td}`}>
             <Link to={`show/${element._id}`}>
               <FaCircleInfo className={style.icon}/>
             </Link>

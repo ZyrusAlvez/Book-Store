@@ -15,6 +15,7 @@ const Show = () => {
     .get(`http://localhost:3000/api/books/${id}`)
     .then((response) => {
       setData(response.data)
+      console.log(response)
       setLoading(false)
     })
     .catch((error) => {

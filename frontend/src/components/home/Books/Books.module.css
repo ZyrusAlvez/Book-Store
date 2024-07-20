@@ -1,22 +1,34 @@
 .table{
   font-family: 'Roboto', 'Arial';
-  border-collapse: collapse;
+  border-spacing: 5px 10px;
   text-align: center;
 }
 
 .title{
   font-weight: bold;
-  background-color: black;
-  color: white;
+  background-color: #1A5319;
+  color: #D6EFD8;
   padding: 0 20px;
+  border-radius: 10px;
 }
 
 .td{
-  border: 1px solid black;
+  border: 1px solid #1A5319;
   margin: 0;
   padding: 0 10px;
+  border-radius: 10px;
+  color: #1A5319;
 }
 
 .icon{
-  color: black;
+  color: #1A5319;
+  vertical-align: middle;
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+  transition: color 0.3s ease
+}
+
+.icon:hover{
+  color: #80AF81
 }

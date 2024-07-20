@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import style from "./Delete.module.css"
+import buttonStyle from '../../components/ui/Button.module.css'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Loading from '../../components/Loading/Loading'
+import Button from '../../components/ui/Button'
 
 const Delete = () => {
 
@@ -30,10 +32,14 @@ const Delete = () => {
   }
 
   return ( loading ? <Loading /> :
-    <div>
-      <h1>Are you sure you want to delete</h1>
-      <button onClick={() => {deleteBook()}}>yes</button>
-      <button>no</button>
+    <div className={style.mainDiv}>
+      <div className={style.lol}>
+        <h1 className={style.title}>Are you sure you want to delete?</h1>
+        <div className={style.buttonDiv}>
+          <Button title="Yes" onClick={deleteBook}/>
+          <Button title="No" onClick={() => {navigate("/")}} className={buttonStyle.no}/>
+        </div>
+      </div>
     </div>
   )
 }
