@@ -111,7 +111,7 @@ const Edit = () => {
         className={style.input}
         placeholder="author"
         value={newData.author.name}
-        onClick={() => setNewData({ ...newData, author: { name: "" } })}
+        onClick={() => handleClick("author")}
         onChange={handleInputChange}
         name="author"
       />
@@ -119,7 +119,7 @@ const Edit = () => {
         className={style.input}
         placeholder="publish year"
         value={newData.publishYear.name}
-        onClick={() => setValueInput({ publishYear: "" })}
+        onClick={() => handleClick("publishYear")}
         onChange={handleInputChange}
         name="publishYear"
         type="number"
