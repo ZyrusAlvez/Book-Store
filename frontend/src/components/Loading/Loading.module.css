@@ -1,7 +1,7 @@
 .loader {
-  border: 20px solid #EAF0F6;
+  border: 20px solid var(--light);
   border-radius: 50%;
-  border-top: 20px solid #FF7A59;
+  border-top: 20px solid var(--dark);
   width: 200px;
   height: 200px;
   animation: spinner 1s linear infinite;

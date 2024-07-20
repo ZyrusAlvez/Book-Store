@@ -1,95 +1,98 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading/Loading";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import style from "./Edit.module.css";
 import axios from "axios";
 import Button from "../../components/ui/Button";
 
 const Edit = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
-  const [oldData, setOldData] = useState({})
+  const [oldData, setOldData] = useState({});
   const [newData, setNewData] = useState({
     title: {
-      "name": "",
-      "clicked": false
+      name: "",
+      clicked: false,
     },
     author: {
-      "name": "",
-      "clicked": false
+      name: "",
+      clicked: false,
     },
     publishYear: {
-      "name": "",
-      "clicked": false
+      name: "",
+      clicked: false,
     },
   });
 
-
   // this takes the old data (before the edit)
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     axios
       .get(`http://localhost:3000/api/books/${id}`)
       .then((response) => {
-        setOldData(response.data) // this will activate the useEffect line 36
-        setLoading(false)
+        setOldData(response.data); // this will activate the useEffect line 45
+        setLoading(false);
       })
       .catch((error) => {
-        console.log(error)
-        setLoading(false)
-      })
-  }, [])
+        console.log(error);
+        setLoading(false);
+      });
+  }, []);
 
   // when the fetch is done, this will make the 2 state variable sync together
   useEffect(() => {
     setNewData({
       title: {
-        "name": oldData.title,
-        "clicked": false
+        name: oldData.title,
+        clicked: false,
       },
       author: {
-        "name": oldData.author,
-        "clicked": false
+        name: oldData.author,
+        clicked: false,
       },
       publishYear: {
-        "name": oldData.publishYear,
-        "clicked": false
+        name: oldData.publishYear,
+        clicked: false,
       },
-    })
-  }, [oldData])
+    });
+  }, [oldData]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setNewData({
       ...newData,
       [name]: {
-        "name" : value,
-        "clicked" : true
+        name: value,
+        clicked: true,
       },
     });
   };
 
+  function handleClick(key) {
+    // Clear the value of the specified key
+    if (!newData[key].clicked) {
+      setNewData({ ...newData, [key]: { name: "" } });
+    }
+  }
+
   const update = (updatedData) => {
-    if (updatedData.author === ""){updatedData.author = "unknown"}
+    if (updatedData.author === "") {
+      updatedData.author = "unknown";
+    }
     setLoading(true);
 
     axios
       .put(`http://localhost:3000/api/books/${id}`, updatedData)
       .then((response) => {
-        console.log(response)
+        console.log(response);
         setLoading(false);
       })
       .catch((error) => {
         console.error(error);
         setLoading(false); // Ensure loading state is reset on error
       });
-  };
-
-  function handleClick(key){
-    // Clear the value of the specified key
-    if (!newData[key].clicked){
-    setNewData({...newData, [key]: { name: '' }});
-    }
+    navigate("/");
   };
 
   return loading ? (
@@ -108,7 +111,7 @@ const Edit = () => {
         className={style.input}
         placeholder="author"
         value={newData.author.name}
-        onClick={() => setNewData({...newData, author: {"name" : ""}})}
+        onClick={() => setNewData({ ...newData, author: { name: "" } })}
         onChange={handleInputChange}
         name="author"
       />
@@ -116,12 +119,21 @@ const Edit = () => {
         className={style.input}
         placeholder="publish year"
         value={newData.publishYear.name}
-        onClick={() => setValueInput({publishYear: ""})}
+        onClick={() => setValueInput({ publishYear: "" })}
         onChange={handleInputChange}
         name="publishYear"
         type="number"
       />
-      <Button onClick={() => {update({title: newData.title.name, author: newData.author.name, publishYear: newData.publishYear.name})}} title="update"/>
+      <Button
+        onClick={() => {
+          update({
+            title: newData.title.name,
+            author: newData.author.name,
+            publishYear: newData.publishYear.name,
+          });
+        }}
+        title="update"
+      />
     </div>
   );
 };
