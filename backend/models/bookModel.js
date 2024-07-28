@@ -22,5 +22,5 @@ const bookSchema = mongoose.Schema(
 
 const Book = mongoose.model('Book', bookSchema)
 
-// this represents the collection in the MongoDB
 export default Book
+// returning a mongoose model that will be used to interact with the MongoDB collection
